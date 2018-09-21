@@ -6,7 +6,10 @@
 #
 import sys
 import bluetooth
-import os.path, time
+import os.path, time, datetime
+
+print(os.stat("test.txt").st_mtime)
+print(time.time() - (60))
 
 def FileCheck(fn):
     try:
@@ -59,12 +62,17 @@ if(FileCheck(filename) == 0):
 
 
 #Opens file and sends to server
-    
+#17
 timeCheck = time.ctime(os.path.getmtime("test.txt"))
+
 
 filenm = open(filename, "r")                       
 while True:
-    if timeCheck != time.ctime(os.path.getmtime("test.txt")):
+
+    file_mod_time = os.stat("test.txt").st_mtime
+    should_time = time.time() - (60)
+    
+    if (file_mod_time != os.stat("test.txt").st_mtime) and (file_mod_time+60):
        
         filenm = open("test.txt", "r")
         time.sleep(2)
