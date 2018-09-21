@@ -8,9 +8,6 @@ import sys
 import bluetooth
 import os.path, time, datetime
 
-print(os.stat("test.txt").st_mtime)
-print(time.time() - (60))
-
 def FileCheck(fn):
     try:
       open(fn, "r")
@@ -70,9 +67,7 @@ filenm = open(filename, "r")
 while True:
 
     file_mod_time = os.stat("test.txt").st_mtime
-    should_time = time.time() - (60)
-    
-    if (file_mod_time != os.stat("test.txt").st_mtime) and (file_mod_time+60):
+    if (file_mod_time != os.stat("test.txt").st_mtime) and (file_mod_time+5):
        
         filenm = open("test.txt", "r")
         time.sleep(2)
