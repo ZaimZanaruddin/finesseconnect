@@ -8,6 +8,10 @@ import sys
 import bluetooth
 import os.path, time, datetime
 
+timeCheck = time.ctime(os.path.getmtime("test.txt"))
+print(timeCheck)
+
+
 def FileCheck(fn):
     try:
       open(fn, "r")
@@ -62,20 +66,23 @@ if(FileCheck(filename) == 0):
 timeCheck = time.ctime(os.path.getmtime("test.txt"))
 
 
-filenm = open(filename, "r")                       
+filenm = open(filename, "r")
+file_mod_time = os.stat("test.txt").st_mtime
 while True:
 
-    file_mod_time = os.stat("test.txt").st_mtime
     
-    if (file_mod_time != os.stat("test.txt").st_mtime): #and (file_mod_time > file_mod_time+2):
+    print (file_mod_time)
+    if (round(file_mod_time) != round(os.stat("test.txt").st_mtime)) and (os.stat("test.txt").st_mtime > file_mod_time+15):
         print("oh yeah")
-       
         filenm = open("test.txt", "r")
         time.sleep(1)
         for line in filenm:
             sock.send(line)
             print("It works")
         print("Updated")
+        filenm.close()
+        time.sleep(1)
+        file_mod_time = os.stat("test.txt").st_mtime
         sock.send("done")
         
     
