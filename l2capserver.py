@@ -7,12 +7,12 @@ import bluetooth
 import time
 import sys
 
-
 def list_to_txt(data):
     file_name=open("test.txt", "w")
     for i in range(len(data)-1):
         file_name.write(data[i])
     file_name.close()
+    
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.L2CAP )
 
@@ -34,7 +34,8 @@ while 1:
     print(dataList)
     if data == "done":
         list_to_txt(dataList)
-        sys.exit()
+        dataList[:] = []
+        
  
 client_sock.close()
 server_sock.close()
