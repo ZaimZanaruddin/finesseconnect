@@ -59,7 +59,6 @@ if(FileCheck(filename) == 0):
 
 
 #Opens file and sends to server
-#17
 timeCheck = time.ctime(os.path.getmtime("test.txt"))
 
 
@@ -67,16 +66,17 @@ filenm = open(filename, "r")
 while True:
 
     file_mod_time = os.stat("test.txt").st_mtime
-    if (file_mod_time != os.stat("test.txt").st_mtime) and (file_mod_time+5):
+    
+    if (file_mod_time != os.stat("test.txt").st_mtime): #and (file_mod_time > file_mod_time+2):
+        print("oh yeah")
        
         filenm = open("test.txt", "r")
-        time.sleep(2)
+        time.sleep(1)
         for line in filenm:
             sock.send(line)
             print("It works")
         print("Updated")
         sock.send("done")
-        timeCheck = time.ctime(os.path.getmtime(filename))
         
     
 
